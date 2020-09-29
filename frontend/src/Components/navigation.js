@@ -13,7 +13,7 @@ class Navigation extends React.Component {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                     <Nav.Link href="home">Overview</Nav.Link>
-                    <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
+                    <NavDropdown title="Analysis" id="collapsible-nav-dropdown">
                         <NavDropdown.Item href="breaches">Breaches</NavDropdown.Item>
                         <NavDropdown.Item href="malware">Malware</NavDropdown.Item>
                         <NavDropdown.Item href="trending">Trending</NavDropdown.Item>
