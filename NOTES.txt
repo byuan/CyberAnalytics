@@ -1,30 +1,0 @@
-Primary Starting Source: https://threatpost.com/
-
-Primary Goal:
-	•	Scrape Front Page of Website 
-	•	Content (Title) 
-	•	Content (Body) 
-	•	Date 
-	•	URL 
-	•	Article ID 
-
-data_collection/data_collection/spiders/scrape.py
-    urls=[“https://threatpost.com/category/vulnerabilities]
-
-
-Scrapping items:
-    response.css(“title::text”).getall()
-    response.css(“time::text”).getall()
-    response.css(“a::attribute(href)”)[17].get()
-    response.css(“a::attribute(href)”)[20].get()
-    response.css(“a::attribute(href)”)[23].get()
-    response.css(“a::attribute(href)”)[26].get()
-    response.css(“a::attribute(href)”)[30].get()
-    response.css(“a::attribute(href)”)[34].get()
-    response.css(“a::attribute(href)”)[38].get()
-    response.css(“a::attribute(href)”)[42].get()
-    response.css(“a::attribute(href)”)[46].get()
-    response.css(“a::attribute(href)”)[52].get()
-
-Exporting the data:
-    scrapy crawl threats -o data.json
