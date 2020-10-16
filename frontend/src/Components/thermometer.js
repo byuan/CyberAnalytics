@@ -5,23 +5,23 @@ import { ThemeProvider } from '@material-ui/styles';
 
 const levels = [
     {
-        value: 20,
+        value: 0,
         label: 'Low'
     },
     {
-        value: 40,
+        value: 20,
         label: 'Guarded'
     },
     {
-        value: 60,
+        value: 40,
         label: 'Elevated'
     },
     {
-        value: 80,
+        value: 60,
         label: 'High'
     },
     {
-        value: 100,
+        value: 80,
         label: 'Severe'
     }
 ];
