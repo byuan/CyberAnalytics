@@ -79,6 +79,17 @@ const radar_data = {
   }
 
 class OverviewDashboard extends React.Component {
+
+    componentDidMount() {
+        fetch("http://localhost:5000/keywords")
+            .then(res => res.json())
+            .then((result) => {
+                console.log(result)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
     render() {
         return (
             <Container>
