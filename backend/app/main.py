@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
 from global_threats import GlobalThreats
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def health_check():
@@ -25,4 +27,8 @@ def keywords():
 @app.route('/articles', methods=['GET'])
 def articles():
     return jsonify(GlobalThreats().get_articles())
+
+@app.route('/analysis/keywords', methods=['GET'])
+def analysis_keywords():
+    return jsonify(GlobalThreats().get_keywords_analysis())
     

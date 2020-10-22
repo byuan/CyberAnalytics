@@ -81,7 +81,7 @@ const radar_data = {
 class OverviewDashboard extends React.Component {
 
     componentDidMount() {
-        fetch("http://localhost:5000/keywords")
+        fetch("http://localhost:5000/analysis/keywords")
             .then(res => res.json())
             .then((result) => {
                 console.log(result)
@@ -90,6 +90,7 @@ class OverviewDashboard extends React.Component {
                 console.log(error)
             })
     }
+
     render() {
         return (
             <Container>
