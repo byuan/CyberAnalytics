@@ -80,15 +80,10 @@ const radar_data = {
 
 class OverviewDashboard extends React.Component {
 
-    componentDidMount() {
-        fetch("http://localhost:5000/analysis/keywords")
-            .then(res => res.json())
-            .then((result) => {
-                console.log(result)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+    async keywordTrends() {
+        console.log('running')
+        const res = await fetch("http://localhost:5000/analysis/keywordsByDay");
+        return res.json();
     }
 
     render() {
@@ -103,7 +98,7 @@ class OverviewDashboard extends React.Component {
                     </Col>
                     <Col className='dashboard-col'>
                         <LineGraph
-                            data={keyword_trends}
+                            get_data={this.keywordTrends}
                             title='Trends by Keyword'
                         />
                     </Col>

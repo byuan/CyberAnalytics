@@ -21,7 +21,7 @@ class GlobalThreats():
     
     def get_keywords_analysis(self):
         return self.db.query("select kw.word as 'word',CAST(SUM(kwa.count) as SIGNED) as 'count', \
-                CAST(SUM(kwa.weighted_count) as SIGNED) as 'weighted count', ra.date as 'date' \
+                CAST(SUM(kwa.weighted_count) as SIGNED) as 'weighted count', DATE_FORMAT(ra.date, '%%Y-%%m-%%d') as 'date' \
                 from keywords as kw, keywords_analysis as kwa, raw_articles as ra \
                 where kw.id = kwa.fk_keyword_id \
                 and ra.id = kwa.fk_raw_article_id \
