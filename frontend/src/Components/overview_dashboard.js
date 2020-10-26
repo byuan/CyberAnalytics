@@ -8,26 +8,6 @@ import DoughnutChart from './donut_chart'
 import RadarChart from './radar_chart'
 import './dashboard.css'
 
-const keywords_breakdown = {
-    labels: ['Ransomware', 'Breach', 'Exploit', 'Malware',
-             'Virus', 'Worm', 'Covid-19'],
-    datasets: [
-      {
-        backgroundColor: [
-            'rgba(29, 195, 187, 1)',
-            'rgba(129, 29, 195, 1)',
-            'rgba(195, 29, 29, 1)',
-            'rgba(195, 121, 29, 1)',
-            'rgba(60, 195, 29, 1)',
-            'rgba(40, 29, 195, 1)',
-            'rgba(190, 195, 29, 1)',
-        ],
-        label: 'Keywords',
-        data: [28, 15, 8, 13, 6, 4, 26]
-      }
-    ]
-  }
-
 const keywords_per_month = {
     labels: ['May', 'June', 'July', 'August',
              'September', 'October'],
@@ -42,47 +22,10 @@ const keywords_per_month = {
     ]
   }
 
-const keyword_trends = {
-    labels: ['10/10', '10/11', '10/12', '10/13',
-             '10/14', '10/15', '10/16'],
-    datasets: [
-      {
-        label: 'Ransomware',
-        backgroundColor: 'rgba(75,192,192,1)',
-        fill: false,
-        borderColor: 'rgba(75,192,192,1)',
-        borderWidth: 1,
-        data: [8, 5, 9, 3, 14, 16, 13]
-      },
-      {
-        label: 'Breach',
-        backgroundColor: 'rgba(230,59,59,1)',
-        fill: false,
-        borderColor: 'rgba(230,59,59,1)',
-        borderWidth: 1,
-        data: [2, 4, 3, 6, 9, 10, 7]
-      }
-    ]
-  }
-
-const radar_data = {
-    labels: ['Ransomware', 'Breach', 'Exploit', 'Malware',
-             'Virus', 'Worm', 'Covid-19'],
-    datasets: [
-      {
-        borderColor: 'rgba(29, 195, 187, 1)',
-        borderWidth: 1,
-        label: 'Keywords',
-        data: [28, 15, 8, 13, 6, 4, 26]
-      }
-    ]
-  }
-
 class OverviewDashboard extends React.Component {
 
-    async keywordTrends() {
-        console.log('running')
-        const res = await fetch("http://localhost:5000/analysis/keywordsByDay");
+    async keywordAnalysis(n_days) {
+        const res = await fetch(`http://localhost:5000/analysis/keywordsByDay?days=${n_days}`);
         return res.json();
     }
 
@@ -92,13 +35,15 @@ class OverviewDashboard extends React.Component {
                 <Row>
                     <Col className='dashboard-col'>
                         <DoughnutChart
-                            data={keywords_breakdown}
+                            get_data={this.keywordAnalysis}
+                            count_days={1}
                             title='Todays Keyword Breakdown'
                         />
                     </Col>
                     <Col className='dashboard-col'>
                         <LineGraph
-                            get_data={this.keywordTrends}
+                            get_data={this.keywordAnalysis}
+                            count_days={30}
                             title='Trends by Keyword'
                         />
                     </Col>
@@ -107,13 +52,14 @@ class OverviewDashboard extends React.Component {
                     <Col className='dashboard-col'>
                         <BarChart
                             data={keywords_per_month}
-                            title='Keywords per Month'
+                            title='Keywords per Month (Example Data)'
                         />
                     </Col>
                     <Col className='dashboard-col'>
                         <RadarChart
-                            data={radar_data}
-                            title='Radar Example'
+                            get_data={this.keywordAnalysis}
+                            count_days={7}
+                            title='Keyword Sums this Week'
                         />
                     </Col>
                 </Row>

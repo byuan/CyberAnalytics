@@ -12,13 +12,11 @@ class LineGraph extends React.Component {
     }
 
     async componentDidMount() {
-        const json_data = await this.props.get_data()
+        const json_data = await this.props.get_data(this.props.count_days)
         this.generateData(json_data)
     }
 
     generateData = (json_data) => {
-        console.log(json_data)
-
         var line_graph_data = {
             labels: json_data['labels'],
             datasets: []
@@ -26,40 +24,24 @@ class LineGraph extends React.Component {
         
         delete json_data['labels']
         Object.keys(json_data).map((keyword) => {
-            /**json_data[keyword].map((point) => {
-                if (typeof point == 'object') {
-                    point['x'] = Date.parse(point['x']);
-                    console.log(point);
-                }
-                
-            });*/
-            console.log(keyword)
-            console.log(json_data[keyword])
             if (keyword !== 'labels') {
+                const random_color = '#'.concat(Math.floor(Math.random()*16777215).toString(16))
                 line_graph_data.datasets.push({
                     label: keyword,
-                    backgroundColor: 'rgba(75,192,192,1)',
+                    backgroundColor: random_color,
                     fill: false,
-                    borderColor: 'rgba(75,192,192,1)',
+                    borderColor: random_color,
                     borderWidth: 1,
                     data: json_data[keyword]
                 });
             }
             return;
         });
-        var filtered = line_graph_data.datasets.filter(function(el) {
-            console.log(el)
-            return typeof el == 'object';
-        })
-        console.log('line graph data')
-        console.log(line_graph_data.datasets)
+
         this.setState({dataset: line_graph_data})
     }
 
     render() {
-        //const dataset = this.generateData(this.props.get_data)
-        console.log('component')
-        console.log(this.state.dataset)
         return (
             <div>
                 <Line
