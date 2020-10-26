@@ -31,14 +31,23 @@ def articles():
 
 @app.route('/analysis/keywords', methods=['GET'])
 def analysis_keywords():
-    return jsonify(GlobalThreats().get_keywords_analysis())
+    n_days = 7
+    if request.args.get('days'):
+        n_days = int(request.args.get('days'))
+    return jsonify(GlobalThreats().get_keywords_analysis(n_days=n_days))
 
 @app.route('/analysis/keywordsByDay', methods=['GET'])
-def analysis_keywords_weigthed_by_day():
-    keywords_data = GlobalThreats().get_keywords_analysis()
+def analysis_keywords_weighted_by_day():
+    n_days = 7
+    if request.args.get('days'):
+        n_days = int(request.args.get('days'))
+    keywords_data = GlobalThreats().get_keywords_analysis(n_days=n_days)
+
+
     keyword_by_day = {}
     max_date = datetime(1900,1,1)
     min_date = datetime.today()
+    
     for keyword in keywords_data:
         data = {'x': keyword['date'],'y': keyword['weighted count']}
 
@@ -49,12 +58,9 @@ def analysis_keywords_weigthed_by_day():
             min_date = data_date
 
         if keyword['word'] in keyword_by_day:
-            print(keyword_by_day[keyword['word']])
-            print(keyword_by_day)
             keyword_by_day[keyword['word']].append(data)
         else:
             keyword_by_day[keyword['word']] = [data]
-            print(keyword_by_day[keyword['word']])
     
     labels = []
     delta = max_date - min_date
@@ -62,6 +68,5 @@ def analysis_keywords_weigthed_by_day():
         labels.append((min_date + timedelta(days=i)).strftime('%Y-%m-%d'))
     keyword_by_day['labels'] = labels
 
-    print(keyword_by_day)
     return keyword_by_day
     
