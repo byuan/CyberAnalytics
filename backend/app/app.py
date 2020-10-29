@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 from datetime import datetime, date, timedelta
-from global_threats import GlobalThreats
+from app.global_threats import GlobalThreats
 
 app = Flask(__name__)
 CORS(app)

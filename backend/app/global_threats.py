@@ -1,4 +1,4 @@
-from db_utility import DBUtility
+from app.db_utility import DBUtility
 import json
 
 class GlobalThreats():

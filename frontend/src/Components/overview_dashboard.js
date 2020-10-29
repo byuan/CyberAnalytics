@@ -25,7 +25,7 @@ const keywords_per_month = {
 class OverviewDashboard extends React.Component {
 
     async keywordAnalysis(n_days) {
-        const res = await fetch(`http://localhost:5000/analysis/keywordsByDay?days=${n_days}`);
+        const res = await fetch(`http://192.168.202.233:5000/analysis/keywordsByDay?days=${n_days}`);
         return res.json();
     }
 
@@ -37,14 +37,14 @@ class OverviewDashboard extends React.Component {
                         <DoughnutChart
                             get_data={this.keywordAnalysis}
                             count_days={1}
-                            title='Todays Keyword Breakdown'
+                            title='Todays Keyword Score Breakdown'
                         />
                     </Col>
                     <Col className='dashboard-col'>
                         <LineGraph
                             get_data={this.keywordAnalysis}
                             count_days={30}
-                            title='Trends by Keyword'
+                            title='Trends by Keyword Score'
                         />
                     </Col>
                 </Row>
@@ -52,14 +52,14 @@ class OverviewDashboard extends React.Component {
                     <Col className='dashboard-col'>
                         <BarChart
                             data={keywords_per_month}
-                            title='Keywords per Month (Example Data)'
+                            title='Keyword Scores per Month (Example Data)'
                         />
                     </Col>
                     <Col className='dashboard-col'>
                         <RadarChart
                             get_data={this.keywordAnalysis}
                             count_days={7}
-                            title='Keyword Sums this Week'
+                            title='Keyword Score Sums this Week'
                         />
                     </Col>
                 </Row>

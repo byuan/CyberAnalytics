@@ -1,5 +1,5 @@
 import pymysql
-import settings
+import app.settings as settings
 
 class DBUtility():
     def __init__(self):

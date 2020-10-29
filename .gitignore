@@ -5,6 +5,7 @@
 venv/
 __pycache__/
 /frontend/node_modules
+/.vscode
 /.pnp
 .pnp.js
 
