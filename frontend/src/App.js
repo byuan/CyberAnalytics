@@ -1,8 +1,9 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Navigation from './Components/navigation'
 import Overview from './Components/overview'
 import Sources from './Components/sources'
+import AboutProject from './Components/about_project'
 
 function App() {
     return (
@@ -11,8 +12,10 @@ function App() {
             <Navigation/>
         </header>
         <Switch>
-            <Route path="/home" component={Overview} exact />
+            <Redirect from="/" to="/overview" exact />
+            <Route path="/overview" component={Overview} exact />
             <Route path="/sources" component={Sources} exact />
+            <Route path="/project" component={AboutProject} exact />
         </Switch>
         </div>
     );

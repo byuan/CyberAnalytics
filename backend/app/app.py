@@ -69,4 +69,12 @@ def analysis_keywords_weighted_by_day():
     keyword_by_day['labels'] = labels
 
     return keyword_by_day
+
+@app.route('/analysis/thermometer', methods=['GET'])
+def analysis_thermometer():
+    gt = GlobalThreats()
+    min_score = gt.get_minimum_score()[0]['weighted count']
+    max_score = gt.get_maximum_score()[0]['weighted count']
+    todays_score = gt.get_todays_score()[0]['weighted count']
+    return {'threat_level':int(round(((todays_score - min_score) * 100) / (max_score - min_score)))}
     

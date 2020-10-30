@@ -33,5 +33,35 @@ class GlobalThreats():
                 and ra.id = kwa.fk_raw_article_id\
                 and ra.date > DATE_ADD(md.max_date, interval -%s day)\
                 group by kw.word, ra.date\
-                order by ra.date asc;", params=(n_days))
+                order by ra.date asc", params=(n_days))
+    
+    def get_minimum_score(self):
+        return self.db.query("select CAST(SUM(kwa.weighted_count) as SIGNED) as 'weighted count',\
+                ra.date as 'date'\
+                from keywords as kw, keywords_analysis as kwa, raw_articles as ra\
+                where kw.id = kwa.fk_keyword_id\
+                and ra.id = kwa.fk_raw_article_id\
+                group by ra.date\
+                order by sum(kwa.weighted_count) asc\
+                limit 1")
+    
+    def get_maximum_score(self):
+        return self.db.query("select CAST(SUM(kwa.weighted_count) as SIGNED) as 'weighted count',\
+                ra.date as 'date'\
+                from keywords as kw, keywords_analysis as kwa, raw_articles as ra\
+                where kw.id = kwa.fk_keyword_id\
+                and ra.id = kwa.fk_raw_article_id\
+                group by ra.date\
+                order by sum(kwa.weighted_count) desc\
+                limit 1;")
+    
+    def get_todays_score(self):
+        return self.db.query("select CAST(SUM(kwa.weighted_count) as SIGNED) as 'weighted count',\
+            ra.date as 'date'\
+            from keywords as kw, keywords_analysis as kwa, raw_articles as ra\
+            where kw.id = kwa.fk_keyword_id\
+            and ra.id = kwa.fk_raw_article_id\
+            group by ra.date\
+            order by ra.date desc\
+            limit 1;")
 

@@ -68,13 +68,6 @@ class RadarChart extends React.Component {
                         display:false,
                         position:'right'
                     },
-                    scales:{
-                        yAxes:[{
-                            ticks:{
-                                beginAtZero: true
-                            }
-                        }]
-                    }
                 }}
                 />
             </div>

@@ -60,6 +60,10 @@ class LineGraph extends React.Component {
                         yAxes:[{
                             ticks:{
                                 beginAtZero: true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: this.props.ylabel
                             }
                         }],
                         xAxes: [{

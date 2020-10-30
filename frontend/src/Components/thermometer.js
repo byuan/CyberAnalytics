@@ -28,7 +28,7 @@ const levels = [
 
 class Thermometer extends React.Component {
     state = {
-        threat_level: 33
+        threat_level: 1
     };
     
 
@@ -95,6 +95,13 @@ class Thermometer extends React.Component {
         });
     }
 
+    async componentWillMount () {
+        const res = await fetch(`http://192.168.202.233:5000/analysis/thermometer`);
+        const thermometer = await res.json();
+        this.setState({threat_level: thermometer['threat_level']});
+        console.log(this.state.threat_level)
+    }
+
     handleChange = (event, value) => {
         this.setState({
             threat_level: value
@@ -105,11 +112,11 @@ class Thermometer extends React.Component {
         return (
             <ThemeProvider theme={this.muiTheme()}>
                 <Slider
-                    //disabled
+                    disabled
                     color='primary'
-                    defaultValue={this.state.threat_level}
+                    value={this.state.threat_level}
                     aria-labelledby="disabled-slider"
-                    onChange={this.handleChange}
+                    //onChange={this.handleChange}
                     valueLabelDisplay="on"
                     marks={levels}
                 />

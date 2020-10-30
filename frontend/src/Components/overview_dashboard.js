@@ -45,6 +45,7 @@ class OverviewDashboard extends React.Component {
                             get_data={this.keywordAnalysis}
                             count_days={30}
                             title='Trends by Keyword Score'
+                            ylabel='Keyword Score'
                         />
                     </Col>
                 </Row>
@@ -53,6 +54,7 @@ class OverviewDashboard extends React.Component {
                         <BarChart
                             data={keywords_per_month}
                             title='Keyword Scores per Month (Example Data)'
+                            ylabel='Keyword Score'
                         />
                     </Col>
                     <Col className='dashboard-col'>

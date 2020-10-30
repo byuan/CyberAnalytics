@@ -23,6 +23,10 @@ class BarChart extends React.Component {
                         yAxes:[{
                             ticks:{
                                 beginAtZero: true
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: this.props.ylabel
                             }
                         }]
                     }
