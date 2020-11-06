@@ -24,7 +24,6 @@ class GoogleTrends():
                 .reset_index()\
                 .set_axis(['t','y'], axis=1, inplace=False)\
                 .to_dict('records')
-        print(keyword_data)
 
 if __name__=='__main__':
     gt = GoogleTrends()
