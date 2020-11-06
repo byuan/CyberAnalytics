@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 from datetime import datetime, date, timedelta
 from app.global_threats import GlobalThreats
+from app.google_trends import GoogleTrends
 
 app = Flask(__name__)
 CORS(app)
@@ -69,6 +70,10 @@ def analysis_keywords_weighted_by_day():
     keyword_by_day['labels'] = labels
 
     return keyword_by_day
+
+@app.route('/googleTrends')
+def google_analytics():
+    return GoogleTrends().get_interest_overtime()
 
 @app.route('/analysis/thermometer', methods=['GET'])
 def analysis_thermometer():
