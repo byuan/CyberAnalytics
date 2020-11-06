@@ -25,7 +25,12 @@ const keywords_per_month = {
 class OverviewDashboard extends React.Component {
 
     async keywordAnalysis(n_days) {
-        const res = await fetch(`http://192.168.202.233:5000/analysis/keywordsByDay?days=${n_days}`);
+        const res = await fetch(`http://192.168.204.54:5000/analysis/keywordsByDay?days=${n_days}`);
+        return res.json();
+    }
+
+    async getGoogleTrends(n_days) {
+        const res = await fetch(`http://192.168.204.54:5000/googleTrends`);
         return res.json();
     }
 
@@ -41,6 +46,15 @@ class OverviewDashboard extends React.Component {
                         />
                     </Col>
                     <Col className='dashboard-col'>
+                        <RadarChart
+                            get_data={this.keywordAnalysis}
+                            count_days={7}
+                            title='Keyword Score Sums this Week'
+                        />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
                         <LineGraph
                             get_data={this.keywordAnalysis}
                             count_days={30}
@@ -51,17 +65,10 @@ class OverviewDashboard extends React.Component {
                 </Row>
                 <Row>
                     <Col className='dashboard-col'>
-                        <BarChart
-                            data={keywords_per_month}
-                            title='Keyword Scores per Month (Example Data)'
-                            ylabel='Keyword Score'
-                        />
-                    </Col>
-                    <Col className='dashboard-col'>
-                        <RadarChart
-                            get_data={this.keywordAnalysis}
-                            count_days={7}
-                            title='Keyword Score Sums this Week'
+                        <LineGraph
+                            get_data={this.getGoogleTrends}
+                            title='Keyword Google Trends'
+                            ylabel='Percentage'
                         />
                     </Col>
                 </Row>

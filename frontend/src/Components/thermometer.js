@@ -96,7 +96,7 @@ class Thermometer extends React.Component {
     }
 
     async componentWillMount () {
-        const res = await fetch(`http://192.168.202.233:5000/analysis/thermometer`);
+        const res = await fetch(`http://192.168.204.54:5000/analysis/thermometer`);
         const thermometer = await res.json();
         this.setState({threat_level: thermometer['threat_level']});
         console.log(this.state.threat_level)

@@ -12,7 +12,13 @@ class LineGraph extends React.Component {
     }
 
     async componentDidMount() {
-        const json_data = await this.props.get_data(this.props.count_days)
+        var json_data;
+        if (this.props.count_days) {
+            json_data = await this.props.get_data(this.props.count_days);
+        } 
+        else {
+            json_data = await this.props.get_data();
+        }
         this.generateData(json_data)
     }
 
@@ -78,9 +84,6 @@ class LineGraph extends React.Component {
                                 
                             },
                         }]
-                    },
-                    tooltips: {
-                        mode: 'x'
                     }
                 }}
                 />
