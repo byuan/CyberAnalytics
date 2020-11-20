@@ -15,7 +15,7 @@ class Navigation extends React.Component {
                     <Nav.Link href="/overview">Overview</Nav.Link>
                     <NavDropdown title="Analysis" id="collapsible-nav-dropdown">
                         <NavDropdown.Item href="/articles/threatpost">Threatpost</NavDropdown.Item>
-                        <NavDropdown.Item>Hacker News</NavDropdown.Item>
+                        <NavDropdown.Item href="/articles/hackernews">Hacker News</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="/trending">Google Trending</NavDropdown.Item>
                         <NavDropdown.Divider />

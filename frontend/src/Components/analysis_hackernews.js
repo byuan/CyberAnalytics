@@ -7,10 +7,10 @@ import DoughnutChart from './donut_chart'
 import RadarChart from './radar_chart'
 import './dashboard.css'
 
-class AnalysisThreatpost extends React.Component {
+class AnalysisHackerNews extends React.Component {
 
     async keywordAnalysis(n_days) {
-        const res = await fetch(`http://192.168.202.108:5000/analysis/keywordsByDay?days=${n_days}&source=Threatpost`);
+        const res = await fetch(`http://192.168.202.108:5000/analysis/keywordsByDay?days=${n_days}&source=The Hacker News`);
         return res.json();
     }
 
@@ -48,4 +48,4 @@ class AnalysisThreatpost extends React.Component {
     }
 }
 
-export default AnalysisThreatpost;
+export default AnalysisHackerNews;

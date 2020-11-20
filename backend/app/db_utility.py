@@ -19,8 +19,9 @@ class DBUtility():
             else:
                 with self.db.cursor() as cursor:
                     cursor.execute(query % params)
+                    self.db.commit()
         except Exception as e:
-            print(e)
+            print(e, flush=True)
             raise(e)
         
 if __name__=='__main__':

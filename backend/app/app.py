@@ -3,6 +3,7 @@ from flask_cors import CORS, cross_origin
 from datetime import datetime, date, timedelta
 from app.global_threats import GlobalThreats
 from app.google_trends import GoogleTrends
+from app.thermometer import Thermometer
 
 app = Flask(__name__)
 CORS(app)
@@ -40,34 +41,24 @@ def analysis_keywords():
 @app.route('/analysis/keywordsByDay', methods=['GET'])
 def analysis_keywords_weighted_by_day():
     n_days = 7
+    source = None
+    keywords_data = []
     if request.args.get('days'):
         n_days = int(request.args.get('days'))
-    keywords_data = GlobalThreats().get_keywords_analysis(n_days=n_days)
-
+    if request.args.get('source') and request.args.get('source') != 'all':
+        source = str(request.args.get('source'))
+        keywords_data = GlobalThreats().get_keywords_analysis_by_source(source,n_days=n_days)
+    else:
+        keywords_data = GlobalThreats().get_keywords_analysis(n_days=n_days)
 
     keyword_by_day = {}
-    max_date = datetime(1900,1,1)
-    min_date = datetime.today()
-    
     for keyword in keywords_data:
         data = {'x': keyword['date'],'y': keyword['weighted count']}
-
-        data_date = datetime.strptime(keyword['date'],'%Y-%m-%d')
-        if data_date > max_date:
-            max_date = data_date
-        elif data_date < min_date:
-            min_date = data_date
 
         if keyword['word'] in keyword_by_day:
             keyword_by_day[keyword['word']].append(data)
         else:
             keyword_by_day[keyword['word']] = [data]
-    
-    labels = []
-    delta = max_date - min_date
-    for i in range(delta.days + 1):
-        labels.append((min_date + timedelta(days=i)).strftime('%Y-%m-%d'))
-    keyword_by_day['labels'] = labels
 
     return keyword_by_day
 
@@ -82,4 +73,8 @@ def analysis_thermometer():
     max_score = gt.get_maximum_score()[0]['weighted count']
     todays_score = gt.get_todays_score()[0]['weighted count']
     return {'threat_level':int(round(((todays_score - min_score) * 100) / (max_score - min_score)))}
+
+@app.route('/analysis/thermometerHistorical')
+def analysis_thermometer_historical():
+    return jsonify({'Risk':Thermometer().get_historical()})
     

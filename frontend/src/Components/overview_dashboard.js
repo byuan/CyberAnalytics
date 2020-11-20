@@ -25,12 +25,12 @@ const keywords_per_month = {
 class OverviewDashboard extends React.Component {
 
     async keywordAnalysis(n_days) {
-        const res = await fetch(`http://192.168.204.54:5000/analysis/keywordsByDay?days=${n_days}`);
+        const res = await fetch(`http://192.168.202.108:5000/analysis/keywordsByDay?days=${n_days}`);
         return res.json();
     }
 
     async getGoogleTrends(n_days) {
-        const res = await fetch(`http://192.168.204.54:5000/googleTrends`);
+        const res = await fetch(`http://192.168.202.108:5000/googleTrends`);
         return res.json();
     }
 

@@ -32,24 +32,20 @@ class DoughnutChart extends React.Component {
         });
 
         // TODO- update this single loop to build labels and data array
-        const labels = Object.keys(dataset);
-        const data = Object.keys(dataset).map((label) => {
-            return dataset[label];
+        var labels = [];
+        var data =  [];
+        var color = [];
+        Object.keys(dataset).map((label) => {
+            labels.push(label);
+            data.push(dataset[label]);
+            color.push('#'.concat(Math.floor(Math.random()*16777215).toString(16)));
         });
-        
+
         const donut_data = {
             labels: labels,
             datasets: [
                 {
-                backgroundColor: [
-                    'rgba(29, 195, 187, 1)',
-                    'rgba(129, 29, 195, 1)',
-                    'rgba(195, 29, 29, 1)',
-                    'rgba(195, 121, 29, 1)',
-                    'rgba(60, 195, 29, 1)',
-                    'rgba(40, 29, 195, 1)',
-                    'rgba(190, 195, 29, 1)',
-                ],
+                backgroundColor: color,
                 label: 'Keywords',
                 data: data
                 }

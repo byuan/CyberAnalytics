@@ -6,6 +6,7 @@ import Sources from './Components/sources'
 import AboutProject from './Components/about_project'
 import GoogleTrends from './Components/google_trending'
 import AnalysisThreatpost  from './Components/analysis_threatpost'
+import AnalysisHackerNews from './Components/analysis_hackernews';
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/project" component={AboutProject} exact />
             <Route path="/trending" component={GoogleTrends} exact />
             <Route path="/articles/threatpost" component={AnalysisThreatpost} exact />
+            <Route path="/articles/hackernews" component={AnalysisHackerNews} exact />
         </Switch>
         </div>
     );

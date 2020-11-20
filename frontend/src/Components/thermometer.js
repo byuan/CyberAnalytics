@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from '@material-ui/core/Slider';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import LineGraph from './line_graph'
 
 const levels = [
     {
@@ -96,10 +97,15 @@ class Thermometer extends React.Component {
     }
 
     async componentWillMount () {
-        const res = await fetch(`http://192.168.204.54:5000/analysis/thermometer`);
+        const res = await fetch(`http://192.168.202.108:5000/analysis/thermometer`);
         const thermometer = await res.json();
         this.setState({threat_level: thermometer['threat_level']});
         console.log(this.state.threat_level)
+    }
+
+    async thermometerHistorical(n_days) {
+        const res = await fetch(`http://192.168.202.108:5000/analysis/thermometerHistorical`);
+        return res.json();
     }
 
     handleChange = (event, value) => {
@@ -120,6 +126,12 @@ class Thermometer extends React.Component {
                     valueLabelDisplay="on"
                     marks={levels}
                 />
+                <LineGraph
+                            get_data={this.thermometerHistorical}
+                            //count_days={}
+                            title='Historical Thermometer Scores'
+                            ylabel='Risk Percentage'
+                        />
             </ThemeProvider>
             
         )
